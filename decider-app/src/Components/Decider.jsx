@@ -81,7 +81,13 @@ const WORKOUT_OPTIONS = [
     'Box Jumps (3 sets of 10)',
     'Leg Raises (3 sets of 15)',
     'Supermans (3 sets of 12)',
-    'Side Plank (30 seconds per side)'
+    'Side Plank (30 seconds per side)',
+    // Extreme exercises added per user request
+    'Navy Seal Burpees (3 sets of 5)', 
+    'Hindu Pushups (3 sets of 10)',
+    'Tuck Jumps (3 sets of 10)',
+    'Man Makers (3 sets of 5)',
+    'Pistol Squats (3 sets of 5 per leg)'
 ];
 
 // 4. Simple Options (Coin Flip & Red/Black)
