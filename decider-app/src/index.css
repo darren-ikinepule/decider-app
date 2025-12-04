@@ -1,16 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-/* Fuel & Fire Theme Colors based on sample:
- * Accent Orange (Fluorescent): #FF6600
- * Background Deep Slate: #0F172A
- * Container Dark Slate: #1E293B
- * Dark Border: #475569
- * Light Text: #F8FAFC
- */
-
-/* Define CSS Variables for easier maintenance and gradient replication */
 :root {
     --color-orange-fluorescent: #FF6600;
     --color-dark-bg: #0F172A;
@@ -18,6 +6,7 @@
     --color-dark-border: #475569;
     --color-text-light: #F8FAFC;
     --color-text-dark: #000000;
+    --color-subtle-glow: rgba(255, 102, 0, 0.15);
 }
 
 body {
@@ -39,15 +28,15 @@ body {
 }
 
 .decider-container {
-    background: radial-gradient(circle at center, #1E293B, #0F172A); /* Replicating radial gradient */
+    background: radial-gradient(circle at center, #1E293B, #0F172A); 
     border: 1px solid var(--color-dark-border);
     border-radius: 12px;
-    box-shadow: 0 0 15px rgba(255, 102, 0, 0.15); /* Subtle orange glow */
+    box-shadow: 0 0 15px var(--color-subtle-glow); 
     padding: 40px;
     margin-top: 40px;
     width: 100%;
     box-sizing: border-box;
-    max-width: 800px; /* Limiting width as per sample */
+    max-width: 800px; 
     margin-left: auto;
     margin-right: auto;
 }
@@ -65,7 +54,7 @@ body {
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 15px rgba(255, 102, 0, 0.6), 0 0 30px rgba(255, 102, 0, 0.3); /* Title Glow */
+    text-shadow: 0 0 15px rgba(255, 102, 0, 0.6), 0 0 30px rgba(255, 102, 0, 0.3); 
     position: relative;
     padding: 1rem 0;
 }
@@ -80,31 +69,72 @@ body {
     background: linear-gradient(90deg, transparent, var(--color-orange-fluorescent), transparent);
     box-shadow: 0 0 10px rgba(255, 102, 0, 0.8);
 }
-.header-title::before {
-    top: 0;
-}
-.header-title::after {
-    bottom: 0;
-}
+.header-title::before { top: 0; }
+.header-title::after { bottom: 0; }
 
 .header p {
-    color: #D1D5DB; /* Lighter Text */
+    color: #D1D5DB; 
     font-size: 1.1rem;
 }
 
+/* --- Mode Selection Grid (Initial View) --- */
+.mode-selection-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 40px;
+}
+
+.mode-card {
+    background-color: var(--color-container-bg);
+    border: 1px solid var(--color-dark-border);
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    min-height: 140px;
+    text-align: center;
+}
+
+.mode-card:hover {
+    border-color: var(--color-orange-fluorescent);
+    box-shadow: 0 0 15px var(--color-subtle-glow);
+    transform: translateY(-3px);
+}
+
+.mode-title {
+    color: var(--color-orange-fluorescent);
+    font-size: 1.2rem;
+    margin: 0;
+}
+.mode-action {
+    color: var(--color-orange-fluorescent);
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Wrapper for descriptions shown directly above the action button */
+/* mode descriptions removed - simplified centered layout */
+
+/* --- Options Grid (Mode View) --- */
 .options-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.75rem; /* Matches sample gap */
-    margin-bottom: 40px;
+    gap: 0.75rem; 
+    margin-bottom: 30px; 
 }
 
 .option-card {
-    background-color: transparent; /* Default state: transparent */
+    background-color: transparent; 
     border: 1px solid var(--color-dark-border);
     color: var(--color-text-light);
-    border-radius: 8px; /* Matches sample radius */
-    padding: 0.5rem 1rem; /* Matches sample padding */
+    border-radius: 8px; 
+    padding: 0.5rem 1rem; 
     text-align: center;
     font-weight: 600;
     cursor: pointer; 
@@ -117,17 +147,16 @@ body {
     justify-content: center;
 }
 
-/* Styles for Selected Card (Included) - Replicates .selected state */
+/* Styles for Selected Card (Included) */
 .option-card.selected {
     background-color: var(--color-orange-fluorescent); 
     border-color: var(--color-orange-fluorescent); 
-    color: var(--color-text-dark); /* Black text on orange */
+    color: var(--color-text-dark); 
     box-shadow: 0 0 10px var(--color-orange-fluorescent);
-    transform: none; /* No scaling on selection */
     opacity: 1;
 }
 
-/* Styles for Deselected Card (Excluded) - Initial state */
+/* Styles for Deselected Card (Excluded) */
 .option-card.deselected {
     background-color: transparent; 
     border-color: var(--color-dark-border);
@@ -136,13 +165,64 @@ body {
 }
 
 .option-card:hover {
-    background-color: rgba(255, 102, 0, 0.1); /* Subtle hover effect */
+    background-color: rgba(255, 102, 0, 0.1); 
     box-shadow: none;
 }
 .option-card.selected:hover {
-    background-color: var(--color-orange-fluorescent); /* Keep color when selected and hovered */
+    background-color: var(--color-orange-fluorescent); 
 }
 
+/* Travel Mode Specific Styling */
+.option-card-travel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 120px;
+    position: relative;
+}
+
+.travel-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--color-text-light);
+}
+
+.option-card-travel.selected .travel-icon-container {
+    color: var(--color-text-dark);
+}
+
+.option-label {
+    font-weight: 600;
+    text-align: center;
+    word-break: break-word;
+}
+
+/* --- Buttons and Navigation --- */
+
+.nav-button {
+    color: var(--color-text-light);
+    background-color: var(--color-container-bg);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.back-to-menu-button {
+    margin-bottom: 25px;
+    width: auto;
+    padding: 8px 15px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--color-dark-border);
+}
+
+.back-to-menu-button:hover:not(:disabled) {
+    border-color: var(--color-orange-fluorescent);
+    box-shadow: 0 0 5px var(--color-subtle-glow);
+}
 
 .main-button {
     display: block;
@@ -150,17 +230,18 @@ body {
     padding: 15px;
     font-size: 1.25rem;
     font-weight: 700;
-    color: #000000; /* Dark text on bright button */
+    color: #000000; 
     background-color: var(--color-orange-fluorescent); 
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
-    box-shadow: 0 5px 20px rgba(255, 102, 0, 0.6); /* Stronger glow shadow */
+    box-shadow: 0 5px 20px rgba(255, 102, 0, 0.6); 
+    margin-bottom: 40px;
 }
 
 .main-button:hover:not(:disabled) {
-    background-color: #FF8000; /* Slightly lighter orange on hover */
+    background-color: #FF8000; 
     box-shadow: 0 6px 25px rgba(255, 102, 0, 0.8);
 }
 
@@ -169,20 +250,22 @@ body {
 }
 
 .main-button:disabled {
-    background-color: var(--color-dark-border); /* Dark grayed out */
+    background-color: var(--color-dark-border); 
     color: #9CA3AF;
     cursor: not-allowed;
     box-shadow: none;
 }
+
+/* --- Result Box --- */
 
 .result-box {
     margin-top: 40px;
     text-align: center;
     padding: 30px;
     border-radius: 12px;
-    background-color: var(--color-container-bg); /* Dark background */
-    border: 2px solid var(--color-orange-fluorescent); /* Fluorescent Border */
-    box-shadow: 0 0 15px var(--color-orange-fluorescent); /* Result box glow */
+    background-color: var(--color-container-bg); 
+    border: 2px solid var(--color-orange-fluorescent); 
+    box-shadow: 0 0 15px var(--color-orange-fluorescent); 
     min-height: 100px;
     display: flex;
     flex-direction: column;
@@ -194,7 +277,7 @@ body {
 .result-text {
     font-size: 2.5rem;
     font-weight: 900;
-    color: var(--color-orange-fluorescent); /* Amber result text */
+    color: var(--color-orange-fluorescent); 
     margin: 0;
     animation: bounceIn 0.8s ease-out;
     text-shadow: 0 0 8px rgba(255, 102, 0, 0.8);
@@ -202,20 +285,20 @@ body {
 
 .result-placeholder {
     font-size: 1.25rem;
-    color: #9CA3AF; /* Light gray placeholder text */
+    color: #9CA3AF; 
     font-style: italic;
     margin: 0;
 }
 
 .result-placeholder.error-text {
-    color: #F87171; /* Light red error text */
+    color: #F87171; 
     font-weight: 600;
 }
 
-/* Spinner Animation for deciding */
+/* Spinner Animation */
 .spinner {
     font-size: 2.5rem;
-    color: var(--color-orange-fluorescent); /* Amber spinner */
+    color: var(--color-orange-fluorescent); 
     animation: spin 1s linear infinite;
     filter: drop-shadow(0 0 5px var(--color-orange-fluorescent));
 }
@@ -255,5 +338,183 @@ body {
     .result-placeholder {
         font-size: 1rem;
     }
+    .mode-selection-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
+/* --- Travel Option Card with Icon --- */
+.option-card-travel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto; /* Allow height to adjust */
+    padding: 10px 5px;
+    font-size: 0.9rem;
+}
+
+.travel-icon-placeholder {
+    font-size: 1.8rem; /* Make the icon/text bigger */
+    margin-bottom: 5px;
+    color: var(--color-orange-fluorescent);
+}
+
+.option-card-travel.selected .travel-icon-placeholder {
+    color: var(--color-text-dark); /* Dark text color on orange background */
+}
+
+
+/* --- Result Box Enhancements --- */
+
+/* Specific background styles for Red/Black result */
+.result-box.red {
+    background-color: #CC2936; /* Deep Red */
+    border-color: #A60C1F; 
+    box-shadow: 0 0 20px #CC2936;
+}
+
+.result-box.black {
+    background-color: #2D3748; /* Dark Grey/Black */
+    border-color: #1A202C; 
+    box-shadow: 0 0 20px #2D3748;
+}
+
+/* Ensure text is clearly visible on Red/Black backgrounds */
+.result-box.red .result-text,
+.result-box.black .result-text {
+    color: var(--color-text-light); /* Light text on dark/colored background */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Coin Flip Animation --- */
+
+.coin-flip-animation {
+    perspective: 800px;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coin {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: gold; 
+    position: relative;
+    transform-style: preserve-3d;
+    animation: flip 1.5s cubic-bezier(0.45, 0.03, 0.51, 0.95) infinite;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8), inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.coin::before, .coin::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--color-text-dark);
+}
+
+/* For simplicity in a CSS-only animation during 'isDeciding', we just show the flip */
+/* If you were showing the actual result, you'd style ::before (Heads) and ::after (Tails) */
+
+@keyframes flip {
+    0% { transform: rotateY(0deg) scale(1); }
+    50% { transform: rotateY(1800deg) scale(1.1); }
+    100% { transform: rotateY(3600deg) scale(1); }
+}
+
+/* Add to existing CSS file */
+
+/* --- Workout Description Box (New) --- */
+.mode-description-box {
+    text-align: center;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border: 1px dashed var(--color-orange-fluorescent);
+    border-radius: 8px;
+    background-color: rgba(255, 102, 0, 0.05);
+}
+
+.mode-desc-text {
+    font-size: 1rem;
+    color: #E5E7EB;
+    margin: 0;
+}
+
+
+/* --- Color Result Box Styles (New) --- */
+
+/* Base style for COLOR results */
+.result-box[class*="color-result-"] {
+    border: 2px solid transparent; /* Remove initial orange border */
+    box-shadow: none; /* Remove initial orange glow */
+}
+
+.result-box[class*="color-result-"] .result-text {
+    color: var(--color-text-dark); /* Default text color for visibility */
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+}
+
+
+/* Specific Color Backgrounds */
+.result-box.color-result-blue { background-color: #3B82F6; border-color: #1D4ED8; box-shadow: 0 0 15px #3B82F6; }
+.result-box.color-result-red { background-color: #EF4444; border-color: #B91C1C; box-shadow: 0 0 15px #EF4444; }
+.result-box.color-result-green { background-color: #10B981; border-color: #059669; box-shadow: 0 0 15px #10B981; }
+.result-box.color-result-yellow { background-color: #FACC15; border-color: #EAB308; box-shadow: 0 0 15px #FACC15; }
+
+/* Ensure text is dark on light colors (Yellow, Cyan) */
+.result-box.color-result-yellow .result-text,
+.result-box.color-result-cyan .result-text {
+    color: var(--color-text-dark) !important; 
+    text-shadow: none;
+}
+
+.result-box.color-result-purple { background-color: #8B5CF6; border-color: #7C3AED; box-shadow: 0 0 15px #8B5CF6; }
+.result-box.color-result-orange { background-color: #F97316; border-color: #EA580C; box-shadow: 0 0 15px #F97316; }
+.result-box.color-result-pink { background-color: #EC4899; border-color: #DB2777; box-shadow: 0 0 15px #EC4899; }
+.result-box.color-result-brown { background-color: #B45309; border-color: #9A3412; box-shadow: 0 0 15px #B45309; }
+.result-box.color-result-gray { background-color: #6B7280; border-color: #4B5563; box-shadow: 0 0 15px #6B7280; }
+.result-box.color-result-cyan { background-color: #22D3EE; border-color: #06B6D4; box-shadow: 0 0 15px #22D3EE; }
+.result-box.color-result-magenta { background-color: #D946EF; border-color: #C026D3; box-shadow: 0 0 15px #D946EF; }
+
+/* Ensure text is light on dark colors */
+.result-box.color-result-blue .result-text,
+.result-box.color-result-red .result-text,
+.result-box.color-result-green .result-text,
+.result-box.color-result-purple .result-text,
+.result-box.color-result-orange .result-text,
+.result-box.color-result-pink .result-text,
+.result-box.color-result-brown .result-text,
+.result-box.color-result-gray .result-text,
+.result-box.color-result-magenta .result-text {
+    color: var(--color-text-light) !important;
+}
+
+/* Red/Black overrides (kept for completeness) */
+.result-box.red {
+    background-color: #CC2936;
+    border-color: #A60C1F; 
+    box-shadow: 0 0 20px #CC2936;
+}
+
+.result-box.black {
+    background-color: #2D3748;
+    border-color: #1A202C; 
+    box-shadow: 0 0 20px #2D3748;
+}
+
+.result-box.red .result-text,
+.result-box.black .result-text {
+    color: var(--color-text-light) !important;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
