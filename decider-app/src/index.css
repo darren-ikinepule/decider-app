@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fuel & Fire Theme Colors based on sample:
+ * Accent Orange (Fluorescent): #FF6600
+ * Background Deep Slate: #0F172A
+ * Container Dark Slate: #1E293B
+ * Dark Border: #475569
+ * Light Text: #F8FAFC
+ */
+
+/* Define CSS Variables for easier maintenance and gradient replication */
+:root {
+    --color-orange-fluorescent: #FF6600;
+    --color-dark-bg: #0F172A;
+    --color-container-bg: #1E293B;
+    --color-dark-border: #475569;
+    --color-text-light: #F8FAFC;
+    --color-text-dark: #000000;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-dark-bg); 
+    color: var(--color-text-light); 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+#root {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.decider-container {
+    background: radial-gradient(circle at center, #1E293B, #0F172A); /* Replicating radial gradient */
+    border: 1px solid var(--color-dark-border);
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 102, 0, 0.15); /* Subtle orange glow */
+    padding: 40px;
+    margin-top: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 800px; /* Limiting width as per sample */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header-title {
+    color: var(--color-orange-fluorescent);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(255, 102, 0, 0.6), 0 0 30px rgba(255, 102, 0, 0.3); /* Title Glow */
+    position: relative;
+    padding: 1rem 0;
+}
+
+.header-title::before, .header-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--color-orange-fluorescent), transparent);
+    box-shadow: 0 0 10px rgba(255, 102, 0, 0.8);
+}
+.header-title::before {
+    top: 0;
+}
+.header-title::after {
+    bottom: 0;
+}
+
+.header p {
+    color: #D1D5DB; /* Lighter Text */
+    font-size: 1.1rem;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem; /* Matches sample gap */
+    margin-bottom: 40px;
+}
+
+.option-card {
+    background-color: transparent; /* Default state: transparent */
+    border: 1px solid var(--color-dark-border);
+    color: var(--color-text-light);
+    border-radius: 8px; /* Matches sample radius */
+    padding: 0.5rem 1rem; /* Matches sample padding */
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer; 
+    transition: all 0.3s ease;
+    user-select: none;
+    line-height: 1.2;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Styles for Selected Card (Included) - Replicates .selected state */
+.option-card.selected {
+    background-color: var(--color-orange-fluorescent); 
+    border-color: var(--color-orange-fluorescent); 
+    color: var(--color-text-dark); /* Black text on orange */
+    box-shadow: 0 0 10px var(--color-orange-fluorescent);
+    transform: none; /* No scaling on selection */
+    opacity: 1;
+}
+
+/* Styles for Deselected Card (Excluded) - Initial state */
+.option-card.deselected {
+    background-color: transparent; 
+    border-color: var(--color-dark-border);
+    color: var(--color-text-light); 
+    opacity: 0.9;
+}
+
+.option-card:hover {
+    background-color: rgba(255, 102, 0, 0.1); /* Subtle hover effect */
+    box-shadow: none;
+}
+.option-card.selected:hover {
+    background-color: var(--color-orange-fluorescent); /* Keep color when selected and hovered */
+}
+
+
+.main-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #000000; /* Dark text on bright button */
+    background-color: var(--color-orange-fluorescent); 
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 5px 20px rgba(255, 102, 0, 0.6); /* Stronger glow shadow */
+}
+
+.main-button:hover:not(:disabled) {
+    background-color: #FF8000; /* Slightly lighter orange on hover */
+    box-shadow: 0 6px 25px rgba(255, 102, 0, 0.8);
+}
+
+.main-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.main-button:disabled {
+    background-color: var(--color-dark-border); /* Dark grayed out */
+    color: #9CA3AF;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.result-box {
+    margin-top: 40px;
+    text-align: center;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: var(--color-container-bg); /* Dark background */
+    border: 2px solid var(--color-orange-fluorescent); /* Fluorescent Border */
+    box-shadow: 0 0 15px var(--color-orange-fluorescent); /* Result box glow */
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-in-out;
+}
+
+.result-text {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--color-orange-fluorescent); /* Amber result text */
+    margin: 0;
+    animation: bounceIn 0.8s ease-out;
+    text-shadow: 0 0 8px rgba(255, 102, 0, 0.8);
+}
+
+.result-placeholder {
+    font-size: 1.25rem;
+    color: #9CA3AF; /* Light gray placeholder text */
+    font-style: italic;
+    margin: 0;
+}
+
+.result-placeholder.error-text {
+    color: #F87171; /* Light red error text */
+    font-weight: 600;
+}
+
+/* Spinner Animation for deciding */
+.spinner {
+    font-size: 2.5rem;
+    color: var(--color-orange-fluorescent); /* Amber spinner */
+    animation: spin 1s linear infinite;
+    filter: drop-shadow(0 0 5px var(--color-orange-fluorescent));
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.1); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .header-title {
+        font-size: clamp(1.1rem, 2.8vw, 1.3rem);
+        margin-bottom: 0.8rem;
+        padding: 0.8rem 0;
+    }
+    .decider-container {
+        padding: 20px;
+    }
+    .options-grid {
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        gap: 0.5rem;
+    }
+    .option-card {
+        padding: 0.4rem 0.8rem;
+        font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+    .result-text {
+        font-size: 2rem;
+    }
+    .result-placeholder {
+        font-size: 1rem;
+    }
+}
+
